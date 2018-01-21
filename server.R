@@ -2,6 +2,7 @@ library(shiny)
 library(BCRA)
 library(flexdashboard)
 library(shinydashboard)
+library(shinyjs)
 
 char_race <- c("White","African-American","Hispanic-American","Other",
                "White","Chinese-American","Japanese-American","Filipino-American",
@@ -191,6 +192,49 @@ shinyServer(
                 breast surgeon to discuss possible risk reduction interventions."
                 
             })
+        })
+        
+        output$image <- renderImage({
+            list(src = "www/question-mark-icon.png",
+                 contentType = 'image/png',
+                 width = 20,
+                 height = 20,
+                 style = "border-radius: 50%;cursor:hand;cursor:pointer")
+        }, deleteFile = FALSE)
+        
+        observeEvent(input$image_click, {
+            showModal(modalDialog(
+                title = "Help with the Questionaire",
+                HTML("<span style=color:#ff8c00;>Question 1:</span> Current age?<br>
+                     Explanation: The risk of developing breast cancer increases with age.<br><br>
+                     <span style=color:#ff8c00;>Question 2:</span> Age of first menstruation?<br>
+                     Explanation: Women who start menstruating at a very young age have a slight 
+                     increase in breast cancer risk that may be linked to their longer lifetime 
+                     exposure to estrogen. <br><br>
+                     <span style=color:#ff8c00;>Question 3:</span> Age at first birth<br>
+                     Explanation: Risk depends on many factors, including age at first live birth 
+                     and family history of breast cancer. The relationship of these two factors 
+                     helps determine risk. <br><br>
+                     <span style=color:#ff8c00;>Question 4:</span> Number of 1st degree relatives that have had breast cancer? <br>
+                     Explanation: Having one or more first-degree relatives (mother, sisters, 
+                     daughters) who have had breast cancer increases a woman's chances of 
+                     developing this disease.<br><br>
+                     <span style=color:#ff8c00;>Question 5:</span> Number of breast biopsies?<br>
+                     <span style=color:#ff8c00;>Question 5.1:</span> Did the biopsy display hyperplasia?<br>
+                     Explanation: Women who have had breast biopsies have an increased risk of 
+                     breast cancer, especially if their biopsy specimens showed atypical 
+                     hyperplasia. Women who have a history of breast biopsies are at increased 
+                     risk because of whatever breast changes prompted the biopsies. Breast 
+                     biopsies themselves do not cause cancer. <br><br>
+                     <span style=color:#ff8c00;>Question 6:</span> Race/Ethnicity?<br>
+                     Explanation: The original Breast Cancer Risk Assessment was based on 
+                     data from white women. But race/ethnicity can influence the calculation 
+                     of breast cancer risk. Over the years, as additional data became available, 
+                     researchers have updated the model to more accurately estimate risk."),
+                size = "l",
+                easyClose = TRUE,
+                footer = NULL
+            ))
         })
         
     }

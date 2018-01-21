@@ -7,16 +7,21 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
     headerPanel("Breast Cancer Risk Assessment"),
     fluidRow(
     sidebarPanel(
-        h2('Questionaire'),
-        numericInput('age',"Current Age", 35, min=35, max=85, step = 1),
+        fluidRow(column(10, h2('Questionaire')),
+                 column(2, tags$br(), 
+                        imageOutput("image", height = 20, width = 20,
+                                    click = clickOpts(id = "image_click")),
+                        tags$br(), tags$br())),
         
-        selectInput('menstruation',"Age of first menstruation",
+        numericInput('age',"Current Age?", 35, min=35, max=85, step = 1),
+        
+        selectInput('menstruation',"Age of first menstruation?",
                     choices = list("Less than 12 years old" = 11,
                                    "12 through 13 years old" = 12,
                                    "Greater than 13 years old" = 14,
                                    "Unknown" = 99), selected = 99),
         
-        selectInput('first_birth',"Age at first birth",
+        selectInput('first_birth',"Age at first birth?",
                     choices = list("No births" = 98,
                                    "Less than 20 years old"= 19,
                                    "20 through 24 years old" = 20,
@@ -24,13 +29,13 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
                                    "30 years old and greater"= 30,
                                    "Unknown" = 99), selected = 99),
         
-        selectInput('relatives',"Number of 1st degree relatives with BrCa",
+        selectInput('relatives',"Number of 1st degree relatives that have had breast cancer?",
                     choices = list("Unknown" = 99,
                                     "0 relatives" = 0,
                                    "1 relatives" = 1,
                                    "2 or more relatives" = 2), selected = 99),
         
-        selectInput('biopsies', "Number of breast biopsies",
+        selectInput('biopsies', "Number of breast biopsies?",
                     choices = list("Unknown" = 99,
                                    "no biopsies" = 0,
                                    "1 biopsies" = 1,
@@ -38,12 +43,12 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
         
         conditionalPanel(
             condition = "input.biopsies == 1 || input.biopsies == 2",
-            selectInput("hyperplasia", "Did the biopsy display hyperplasia",
+            selectInput("hyperplasia", "Did the biopsy display hyperplasia?",
                         choices = list("No" = 0,
                                        "Yes" = 1,
                                        "Unknown" = 99), selected = 99)),
         
-        selectInput('race',"Race",
+        selectInput('race',"Race/Ethnicity?",
                     choices = list("White" = 1,
                                    "African-American" = 2,
                                    "Hispanic-American" = 3,
@@ -55,7 +60,9 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
                                    "Other Pacific Islander" = 10,
                                    "Other Asian" = 11), selected = 1),
         
-        actionButton("do","Calculate Risk", class = "btn-primary")
+        actionButton("do","Calculate Risk", class = "btn-primary"),
+        
+        verbatimTextOutput("hover_info")
         
     ),
     
@@ -71,7 +78,8 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
         fluidRow(
             column(7
                    , fluidRow(
-                       column(12, span(textOutput("advice_title"), style="font-size: 20px"), tags$hr())
+                       column(12, span(textOutput("advice_title"), style="font-size: 20px"),
+                              tags$hr(width = "50%", align = "left"))
                    )
                    , fluidRow(
                        column(12, textOutput("advice_text1"), tags$br(),
