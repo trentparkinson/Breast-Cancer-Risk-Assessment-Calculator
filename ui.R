@@ -60,9 +60,7 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
                                    "Other Pacific Islander" = 10,
                                    "Other Asian" = 11), selected = 1),
         
-        actionButton("do","Calculate Risk", class = "btn-primary"),
-        
-        verbatimTextOutput("hover_info")
+        actionButton("do","Calculate Risk", class = "btn-primary")
         
     ),
     
@@ -86,7 +84,7 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
                               textOutput("advice_text2"))
                    )
             )
-            , column(5, tags$br(), tags$br(), tags$br(), gaugeOutput("plt1"))
+            , column(5, htmlOutput("short_five"), htmlOutput("short_life"), tags$br(), tags$br(), gaugeOutput("plt1"))
         )
     )),
     

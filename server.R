@@ -2,7 +2,6 @@ library(shiny)
 library(BCRA)
 library(flexdashboard)
 library(shinydashboard)
-library(shinyjs)
 
 char_race <- c("White","African-American","Hispanic-American","Other",
                "White","Chinese-American","Japanese-American","Filipino-American",
@@ -194,6 +193,18 @@ shinyServer(
             })
         })
         
+        observeEvent(eventExpr = input$do, handlerExpr = { 
+            output$short_five <- renderText({ 
+                paste0("<font color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "Your 5-Year Risk: ", pred_five(), "%")
+            })
+        })
+        
+        observeEvent(eventExpr = input$do, handlerExpr = { 
+            output$short_life <- renderText({ 
+                paste0("<font color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "Your Lifetime Risk: ", pred_lifetime(), "%")
+            })
+        })
+        
         output$image <- renderImage({
             list(src = "www/question-mark-icon.png",
                  contentType = 'image/png',
@@ -211,7 +222,7 @@ shinyServer(
                      Explanation: Women who start menstruating at a very young age have a slight 
                      increase in breast cancer risk that may be linked to their longer lifetime 
                      exposure to estrogen. <br><br>
-                     <span style=color:#ff8c00;>Question 3:</span> Age at first birth<br>
+                     <span style=color:#ff8c00;>Question 3:</span> Age at first birth?<br>
                      Explanation: Risk depends on many factors, including age at first live birth 
                      and family history of breast cancer. The relationship of these two factors 
                      helps determine risk. <br><br>

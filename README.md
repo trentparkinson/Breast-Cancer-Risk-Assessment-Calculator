@@ -1,4 +1,4 @@
 # Breast-Cancer-Risk-Assessment-Calculator
 App to predict breast cancer risk using the gail model
 
-![Screenshot](screenshot.png)
+![Screenshot](BCRA_Screenshot.png)
