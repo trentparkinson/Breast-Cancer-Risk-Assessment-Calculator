@@ -1,5 +1,4 @@
 library(shiny)
-library(shinydashboard)
 library(flexdashboard)
 library(shinythemes)
 
@@ -9,7 +8,7 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
     sidebarPanel(
         fluidRow(column(10, h2('Questionaire')),
                  column(2, tags$br(), 
-                        imageOutput("image", height = 20, width = 20,
+                        imageOutput("image", height = 25, width = 25,
                                     click = clickOpts(id = "image_click")),
                         tags$br(), tags$br())),
         
@@ -84,7 +83,7 @@ shinyUI(fluidPage(theme = shinytheme("superhero"),
                               textOutput("advice_text2"))
                    )
             )
-            , column(5, htmlOutput("short_five"), htmlOutput("short_life"), tags$br(), tags$br(), gaugeOutput("plt1"))
+            , column(5, tags$br(), htmlOutput("short_five"), htmlOutput("short_life"), tags$br(), gaugeOutput("plt1"))
         )
     )),
     

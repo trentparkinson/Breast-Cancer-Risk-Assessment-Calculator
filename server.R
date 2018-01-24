@@ -1,7 +1,6 @@
 library(shiny)
 library(BCRA)
 library(flexdashboard)
-library(shinydashboard)
 
 char_race <- c("White","African-American","Hispanic-American","Other",
                "White","Chinese-American","Japanese-American","Filipino-American",
@@ -195,21 +194,21 @@ shinyServer(
         
         observeEvent(eventExpr = input$do, handlerExpr = { 
             output$short_five <- renderText({ 
-                paste0("<font color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "Your 5-Year Risk: ", pred_five(), "%")
+                paste0("<font size=\"4\" color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "<font size=\"4\"><b>Your 5-Year Risk: ", pred_five(), "%</b></font>")
             })
         })
         
         observeEvent(eventExpr = input$do, handlerExpr = { 
             output$short_life <- renderText({ 
-                paste0("<font color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "Your Lifetime Risk: ", pred_lifetime(), "%")
+                paste0("<font size=\"4\" color=\"#ff8c00\"><b>", ">>>  ","</b></font>", "<font size=\"4\"><b>Your Lifetime Risk: ", pred_lifetime(), "%</b></font>")
             })
         })
         
         output$image <- renderImage({
             list(src = "www/question-mark-icon.png",
                  contentType = 'image/png',
-                 width = 20,
-                 height = 20,
+                 width = 25,
+                 height = 25,
                  style = "border-radius: 50%;cursor:hand;cursor:pointer")
         }, deleteFile = FALSE)
         
@@ -244,7 +243,7 @@ shinyServer(
                      researchers have updated the model to more accurately estimate risk."),
                 size = "l",
                 easyClose = TRUE,
-                footer = NULL
+                footer = modalButton("Dismiss")
             ))
         })
         
